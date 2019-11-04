@@ -1,5 +1,3 @@
-from operator import attrgetter
-
 class ContaSalario:
     def __init__(self, codigo):
         self._codigo = codigo
@@ -17,12 +15,8 @@ class ContaSalario:
 
         return self._codigo == outro._codigo #and self._saldo == outro._saldo
 
-def extrai_saldo(conta):
-    return conta._saldo
-
-nomes = ["Guilherme", "Daniela", "Paulo"]
-
-print(sorted(nomes))
+    def __lt__(self, outro):
+        return self._saldo < outro._saldo
 
 conta_do_guilherme = ContaSalario(17)
 conta_do_guilherme.deposita(500)
@@ -35,15 +29,5 @@ conta_do_paulo.deposita(510)
 
 contas = [conta_do_guilherme, conta_da_daniela, conta_do_paulo]
 
-for conta in contas:
-    print(conta)
-
-print("\n")
-
-for conta in sorted(contas, key=extrai_saldo):
-    print(conta)
-
-print("\n")
-
-for conta in sorted(contas, key=attrgetter("_saldo")):
+for conta in sorted(contas, reverse=True):
     print(conta)
